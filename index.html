@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Monster Game</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="space-y-5 bg-slate-400">
+    <header
+      class="w-full bg-sky-600 text-white font-bold text-2xl text-center py-6"
+    >
+      Monster Slayer
+    </header>
+    <div id="app">
+      <section class="flex items-center mx-20 mt-10">
+        <div class="">
+          <img src="pngegg.png" class="h-64" alt="" />
+        </div>
+        <div class="flex-grow group">
+          <marquee
+            behavior="alternate"
+            scrolldelay="60"
+            scrollamount="100"
+            :loop="fireBulletRound"
+            direction="right"
+            ><img src="pngwing.com (1).png" class="w-16" alt=""
+          /></marquee>
+        </div>
+        <div class="">
+          <img src="pngwing.com.png" class="h-64" alt="" />
+        </div>
+      </section>
+      <section class="mx-20 flex justify-between mt-5">
+        <div class="border border-gray-500 h-10 w-[300px] bg-red-100">
+          <div
+            class="h-full bg-green-500"
+            :class="monsterHealthBar"
+            :style="{width: monsterHealth + '%'}"
+          ></div>
+        </div>
+        <div class="border border-gray-500 h-10 w-[300px] bg-red-100">
+          <div
+            class="h-full bg-green-500"
+            :class="playerHealthBar"
+            :style="{width: playerHealth + '%'}"
+          ></div>
+        </div>
+      </section>
+      <section class="mx-20 flex justify-between">
+        <div class="w-[300px] text-3xl font-bold text-cyan-800 text-center">
+          Monster Health
+        </div>
+        <div class="w-[300px] text-3xl font-bold text-cyan-800 text-center">
+          Player Health
+        </div>
+      </section>
+      <section
+        class="mx-20 mt-10 p-10 rounded-xl bg-white opacity-80 text-xl font-bold text-cyan-800 text-center"
+        v-if="winner"
+      >
+        <div class="text-3xl">Game Over!</div>
+        <div>
+          <h2 v-if="winner==='player'">You Won!</h2>
+          <h2 class="text-red-500" v-else-if="winner==='monster'">You Lost!</h2>
+          <h2 v-else>Match Draw!</h2>
+        </div>
+        <button
+          @click="startGame"
+          class="border bg-indigo-500 mt-5 text-white font-semibold px-5 py-2 rounded-md hover:border-indigo-500 hover:text-indigo-500 hover:bg-white select-none delay-100 duration-150 ease-linear text-base"
+        >
+          Start Game
+        </button>
+      </section>
+      <section
+        v-else
+        class="mx-20 mt-10 p-10 rounded-xl bg-white opacity-80 flex justify-center gap-5"
+      >
+        <button
+          @click="attackMonster"
+          class="border bg-indigo-500 text-white font-semibold px-5 py-2 rounded-md hover:border-indigo-500 hover:text-indigo-500 hover:bg-white select-none delay-100 duration-150 ease-linear"
+        >
+          Attack
+        </button>
+        <button
+          @click="specialAttack"
+          :disabled="currentRound % 3 !== 0"
+          class="border bg-indigo-500 text-white font-semibold px-5 py-2 rounded-md hover:border-indigo-500 hover:text-indigo-500 hover:bg-white select-none delay-100 duration-150 ease-linear"
+        >
+          Special Attack
+        </button>
+        <button
+          @click="healPlayer"
+          class="border bg-indigo-500 text-white font-semibold px-5 py-2 rounded-md hover:border-indigo-500 hover:text-indigo-500 hover:bg-white select-none delay-100 duration-150 ease-linear"
+        >
+          Heal
+        </button>
+        <button
+          @click="surrender"
+          class="border bg-indigo-500 text-white font-semibold px-5 py-2 rounded-md hover:border-indigo-500 hover:text-indigo-500 hover:bg-white select-none delay-100 duration-150 ease-linear"
+        >
+          Surrender
+        </button>
+      </section>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
